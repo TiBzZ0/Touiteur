@@ -1,0 +1,22 @@
+{
+  "name": "touites-manager",
+  "version": "1.0.0",
+  "description": "Micro-service managing the touites (posts) of Touiteur",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Antoine Gachenot",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "express-required-fields": "^1.1.2",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "mongoose": "^8.15.1",
+    "nodemon": "^3.1.10"
+  }
+}

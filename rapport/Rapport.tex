@@ -1,0 +1,259 @@
+\documentclass[12pt,a4paper]{report}
+
+\usepackage{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+\usepackage{setspace}
+\onehalfspacing
+\usepackage{titlesec}
+\usepackage[hidelinks]{hyperref}
+\usepackage{graphicx}
+\usepackage{tocloft}
+\usepackage{enumitem}
+\usepackage{tabularx}
+
+
+% Titres espacés
+\titlespacing*{\chapter}{0pt}{2em}{1em}
+\titlespacing*{\section}{0pt}{1.5em}{0.7em}
+\titlespacing*{\subsection}{0pt}{1em}{0.5em}
+
+% Table des matières sans justification
+\renewcommand{\cftchapfont}{\bfseries}
+\renewcommand{\cftsecfont}{}
+\renewcommand{\cftsubsecfont}{}
+
+% Pas de justification globale
+\raggedright
+
+\begin{document}
+
+\begin{titlepage}
+    \centering
+    \vspace*{2cm}
+    {\Huge\bfseries Rapport de projet \par}
+    \vspace{1cm}
+    {\Large Développement Web Avancé\par}
+    \vspace{2cm}
+    {\large Auteurs: Antoine GACHENOT, Thibaut MIDAVAINE, Basile ROSIER\par}
+    \vspace{0.5cm}
+    {\large Promotion: FISA A3 2427\par}
+    \vspace{0.5cm}
+    {\large Date: \today\par}
+    \vfill
+    {\large CESI - Campus de Nancy\par}
+    \vspace{1cm}
+    \includegraphics[width=0.3\textwidth]{Logo_cesi.png} 
+\end{titlepage}
+
+\newpage
+\chapter*{Résumé}
+\addcontentsline{toc}{chapter}{Résumé}
+\noindent
+Dans un contexte où la simplicité, la rapidité et l'accessibilité deviennent des critères essentiels pour les utilisateurs, ce projet vise à concevoir un réseau social léger et réactif, inspiré de Twitter/X, mais pensé pour garantir une neutralité politique et une modération équitable des contenus. L'objectif est de permettre à chacun de publier des messages courts, d'interagir avec la communauté et de profiter d'une expérience fluide, quel que soit le support utilisé.
+
+Pour répondre à ces enjeux, l'équipe a fait le choix de technologies modernes et robustes~: un back-end en Node.js avec Express, une architecture microservices, une base de données MongoDB, et un front-end développé avec React. L'ensemble des services est conteneurisé avec Docker, facilitant le déploiement et la gestion des dépendances, tandis que GitLab CI assure l'intégration et le déploiement continus. L'application est hébergée sur OVH, garantissant une disponibilité optimale.
+
+Le projet s'articule autour de fonctionnalités essentielles telles que la création de comptes, l'authentification sécurisée, la publication et la consultation de messages, la gestion des interactions (likes, commentaires, suivis), ainsi que la personnalisation des profils. Des fonctionnalités avancées, comme la gestion des notifications, l'ajout de médias, la recherche par tags ou encore la messagerie privée, viennent enrichir l'expérience utilisateur et renforcer la dimension communautaire.
+
+Au-delà des aspects techniques, ce projet a permis à l'équipe de relever de nombreux défis~: gestion des CORS, sécurité des données, automatisation du déploiement, et adaptation à des contraintes d'hébergement. Cette expérience a été l'occasion de mettre en pratique des compétences en développement web avancé, en gestion de projet collaboratif et en résolution de problèmes concrets, tout en posant les bases d'une plateforme évolutive, accessible à tous et soucieuse de la neutralité des échanges.
+
+\chapter*{Abstract}
+\addcontentsline{toc}{chapter}{Abstract}
+
+In a context where simplicity, speed, and accessibility are becoming essential criteria for users, this project aims to design a lightweight and responsive social network inspired by Twitter/X, but conceived to ensure political neutrality and fair content moderation. The objective is to allow everyone to post short messages, interact with the community, and enjoy a smooth experience on any device.
+
+To meet these challenges, the team chose modern and robust technologies: a Node.js back-end with Express, a microservices architecture, a MongoDB database, and a front-end developed with React. All services are containerized with Docker, facilitating deployment and dependency management, while GitLab CI ensures continuous integration and deployment. The application is hosted on OVH, guaranteeing optimal availability.
+
+The project is built around essential features such as account creation, secure authentication, posting and viewing messages, managing interactions (likes, comments, follows), and profile customization. Advanced features like notifications, media uploads, tag-based search, and private messaging further enrich the user experience and strengthen the community aspect.
+
+Beyond the technical aspects, this project enabled the team to tackle numerous challenges: CORS management, data security, deployment automation, and adaptation to hosting constraints. This experience was an opportunity to apply advanced web development skills, collaborative project management, and practical problem-solving, while laying the foundations for a scalable platform accessible to all and committed to neutral exchanges.
+
+
+\noindent
+\newpage
+\tableofcontents
+\newpage
+
+% CORPS DU TEXTE
+\chapter{Introduction}
+\section{Présentation du sujet}
+À l'ère du numérique, les réseaux sociaux occupent une place centrale dans la communication et le partage d'informations. Cependant, la majorité des plateformes existantes sont souvent gourmandes en ressources et peu adaptées aux environnements contraints ou aux utilisateurs recherchant simplicité et rapidité. C'est dans ce contexte que notre projet s'inscrit~: concevoir et développer un réseau social léger, réactif et accessible, inspiré de Twitter/X, mais optimisé pour fonctionner efficacement sur des dispositifs à faibles ressources.
+
+L'objectif principal est de permettre à chaque utilisateur de publier des messages courts, d'interagir facilement avec la communauté, et de profiter d'une expérience fluide, quel que soit le support utilisé. Pour atteindre ce but, nous avons fait le choix de technologies modernes et robustes~: un back-end en Node.js avec Express pour la gestion des données et de la sécurité, un front-end en React pour garantir une interface intuitive et adaptable, et l'utilisation de Docker pour simplifier le déploiement et la maintenance de l'application.
+
+Le projet s'articule autour de fonctionnalités essentielles telles que la création de comptes, l'authentification sécurisée, la publication et la consultation de messages, la gestion des interactions (likes, commentaires, suivis), ainsi que la personnalisation des profils. Des fonctionnalités avancées, comme la gestion des notifications, l'ajout de médias, la recherche par tags ou encore la messagerie privée, viennent enrichir l'expérience utilisateur et renforcer la dimension communautaire de la plateforme.
+
+Ce rapport présente la démarche suivie, les choix techniques réalisés, ainsi que les perspectives d'évolution pour ce réseau social nouvelle génération, pensé pour être à la fois performant, sécurisé et accessible au plus grand nombre.
+
+\section{Présentation du plan}
+Ce rapport est structuré de la manière suivante~:
+\begin{itemize}[label=\textbullet]
+    \item \textbf{Étapes du projet}~: Présentation des différentes phases de développement, de l'analyse des besoins à la mise en production.
+    \begin{itemize}[label=-]
+        \item Étape 1 : Analyse des besoins du sujet et comment nous avons défini les fonctionnalités principales et secondaires du réseau social.
+        \item Étape 2 : Conception de l'architecture du projet, incluant le schéma d'architecture et la description des choix techniques.
+        \item Étape 3 : Prémices du développement et mise en place de l'environnement de travail, ainsi que les premières implémentations des services back-end et front-end.
+        \item Étape 4 : CI-CD et hébergement de l'application sur OVH, incluant la configuration du pipeline CI/CD avec GitLab et les tests de déploiement.
+        \item Étape 5 : Développement avancé : Mise en place des fonctionnalités principales du front-end, intégration avec le back-end et tests fonctionnels.
+        \item Répartition des tâches : Détail des contributions de chaque membre de l'équipe et des outils utilisés pour la gestion de projet.
+    \end{itemize}
+    \item \textbf{Problèmes rencontrés}~: Description des défis techniques et organisationnels rencontrés durant le projet, ainsi que les solutions apportées.
+    \item \textbf{Conclusion}~: Bilan du projet, perspectives d'évolution et recommandations pour les développements futurs.
+    \item \textbf{Bibliographie}~: Liste des références et ressources utilisées pour la réalisation du projet.
+    \item \textbf{Glossaire}~: Définitions des termes techniques et spécifiques au projet.
+\end{itemize}
+
+\chapter{Étapes du projet}
+\section{Étape 1 : Analyse des besoins du sujet}
+\subsection{fonctionnalités principales}
+Le projet de réseau social léger s'articule autour de plusieurs fonctionnalités principales, visant à offrir une expérience utilisateur fluide et intuitive. Voici les principales caractéristiques que nous avons identifiées :
+\begin{itemize}[label=\textbullet]
+    \item Création de comptes utilisateurs
+    \item Authentification sécurisée (connexion/déconnexion)
+    \item Publication de messages courts: des "Touites"
+    \item Interaction avec la communauté (likes, commentaires, suivis)
+    \item Personnalisation des profils
+    \item Flux de messages : affichage des publications des utilisateurs suivis et non suivis
+\end{itemize}
+
+\subsection{fonctionnalités secondaires}
+Parmi les fonctionnalités secondaires, nous pouvons envisager :
+\begin{itemize}[label=\textbullet]
+    \item Gestion des notifications
+    \item Ajout de médias (images, vidéos)
+    \item Recherche par tags
+    \item Messagerie privée
+\end{itemize}
+
+\section{Étape 2 : Conception de l'architecture}
+\paragraph{Architecture du projet : schéma}
+\includegraphics[width=1\textwidth]{Architecture.png} 
+\paragraph{Architecture du projet : description}
+L'architecture du projet repose sur une séparation claire entre le front-end et le back-end, facilitant ainsi la maintenance et l'évolution de l'application. Le back-end, développé en Node.js avec Express via une architecture microservices, gère les requêtes API, l'authentification des utilisateurs et l'accès à la base de données MongoDB. Le front-end, quant à lui, est construit avec React et communique avec le back-end via des appels API grâce à Axios. Cette approche permet une grande flexibilité et scalabilité, tout en garantissant une expérience utilisateur fluide.
+
+La base de données MongoDB est unique mais chaque service dispose de sa propre collection, permettant une gestion efficace des données. Les services sont conteneurisés avec Docker, ce qui simplifie le déploiement et la gestion des dépendances. Le projet est conçu pour être facilement extensible, permettant l'ajout futur de nouvelles fonctionnalités sans perturber l'architecture existante.
+
+\section{Étape 3 : Prémices du développement}
+Les premières étapes du développement ont consisté à mettre en place l'environnement de travail et à configurer les outils nécessaires. Nous avons choisi d'utiliser Docker pour containeriser les différents services, ce qui facilite le déploiement et la gestion des dépendances. Chaque service a été développé de manière indépendante, en suivant les principes de l'architecture microservices.
+
+Nous avons commencé par mettre en place le back-end, en créant les routes API des différents services, les modèles de données pour MongoDB, et en implémentant les fonctionnalités d'authentification. Ensuite, nous avons développé le front-end avec React, en intégrant Axios pour les appels API et en créant les composants nécessaires pour l'authentification.
+
+Ceci nous a permis de poser les bases solides du projet, en nous assurant que chaque service fonctionne correctement avant de passer à l'implémentation des fonctionnalités plus avancées. Nous avons également mis en place un système de gestion des versions avec Git, permettant une collaboration efficace entre les membres de l'équipe.
+\section{Étape 4 : CI-CD et hébergement}
+Avec l'utilisation de Docker, nous avons pu mettre en place un pipeline CI/CD (Intégration Continue / Déploiement Continu) efficace. De plus, nous avons choisi d'héberger notre application sur OVH, ce qui nous a permis de réaliser les tests de déploiement et de configuration nécessaires pour assurer la disponibilité et la performance de notre réseau social.
+
+Via GitLab CI, nous avons automatisé le processus de build et de déploiement. Chaque fois qu'une modification est poussée dans le dépôt, un pipeline est déclenché pour construire les images Dockers et déployer les services sur notre serveur OVH. Cela garantit que chaque version de l'application est mise dans l'environnement de tests et de production sans intervention manuelle.
+
+\section{Étape 5 : Développement avancée}
+Une fois la majorité des services back-end en place et du CI-CD, nous avons commencé à développer les fonctionnalités principales du front-end. En utilisant React, nous avons créé des composants réutilisables pour les différentes parties de l'application, comme la page d'accueil, le profil utilisateur, les messages et les flux de messages.
+
+\section{Répartition des tâches}
+La répartition des tâches entre les membres de l'équipe a été réalisé au "compte-goutte", en fonction des compétences et des intérêts de chacun, mais aussi en fonction des besoins lors du développement. Le back-end et le front-end ont été abordés par chacun des membres. Voici un aperçu de la répartition des tâches :
+\begin{itemize}[label=\textbullet]
+    \item Antoine GACHENOT :
+    \begin{itemize}[label=-]
+        \item Développement imitial des microservices.
+        \item Hébergement du projet sur OVH.
+        \item Mise en place du CI/CD avec GitLab.
+        \item Vérification et validation des Merges Requests.
+        \item Développement de la vérification des addresses e-mail.
+        \item Développement de la gestion des notifications.
+    \end{itemize}
+    \item Thibaut MIDAVAINE :
+    \begin{itemize}[label=-]
+        \item Développement initial des microservices.
+        \item Développement de l'authentification des utilisateurs.
+        \item Développement de la gestion des "flux infinis" (infinite scroll) pour le fil d'actualités.
+        \item Développement de la page de profil utilisateur.
+    \end{itemize}
+    \item Basile ROSIER :
+    \begin{itemize}[label=-]
+        \item Développement initial du front-end.
+        \item Développement de la page d'accueil et de la page de connexion.
+        \item Définition du design et de l'ergonomie de l'application.
+        \item Développement des composants de touites et de leurs interactions.
+        \item Développement de la partie administration (tableaux de bord de modération), système de report.
+    \end{itemize}
+\end{itemize}
+Ce tableau résume les principales contributions de chaque membre de l'équipe. Cependant, il est important de noter que la collaboration a été constante, avec des échanges réguliers pour s'assurer que chaque partie du projet s'intègre bien avec les autres. De plus, il était courant que les membres de l'équipe aident les autres sur leurs tâches respectives, notamment pour le débogage et les tests. Finalement, la répartition des tâches a été flexible, permettant à chacun de contribuer là où il était le plus utile.
+
+\chapter{Problèmes rencontrés}
+Au cours du projet, nous avons rencontré plusieurs problèmes techniques, notamment :
+\begin{itemize}[label=-]
+    \item Environnement de développement et CI-CD : La configuration de l'environnement de développement et du pipeline CI/CD a été complexe, notamment en raison des différences entre les environnements locaux et le serveur OVH.
+    \item Gestion des CORS : La gestion des CORS (Cross-Origin Resource Sharing) a posé des problèmes lors des appels API entre le front-end et le back-end, nécessitant des ajustements dans la configuration du serveur Nginx et des microservices entre la partie locale et le serveur OVH.
+    \item Hacking de la base de données hébergée : Lors de la mise en place de la base de données MongoDB, nous avons rencontré des problèmes de sécurité liés à l'accès non autorisé aux données. Nous avons dû mettre en place des mesures de sécurité supplémentaires pour protéger les données des utilisateurs.
+    \item Non intuitivité de l'interface d'OVH : L'interface d'administration d'OVH n'était pas très intuitive, ce qui a compliqué la prise en main de la plateforme.
+    \item Enregistrement auprès de la belgique : Le nom de domaine "touiteur.be" a dû être enregistré auprès des autorités belges, ce qui a ajouté une couche de complexité administrative au projet.
+\end{itemize}
+Ces problèmes ont été résolus grâce à la collaboration de l'équipe et à la recherche de solutions adaptées. Nous avons appris à mieux gérer les environnements de développement et de production, ainsi qu'à sécuriser les données des utilisateurs.
+
+\chapter{Conclusion}
+\section{Bilan}
+Le projet de développement d'un réseau social léger et réactif, inspiré de Twitter/X, a été une expérience enrichissante et formatrice pour l'équipe. Nous avons réussi à créer une application fonctionnelle, respectant les principes de l'architecture microservices, tout en garantissant une expérience utilisateur fluide grâce à l'utilisation de React pour le front-end et Node.js avec Express pour le back-end.
+
+L'utilisation de Docker pour containeriser les services a grandement facilité le déploiement et la gestion des dépendances, permettant une intégration continue efficace via GitLab CI. L'hébergement sur OVH a également été un choix judicieux, offrant une infrastructure fiable pour notre application et nous permettant de réaliser les test des fonctionnalités en conditions réelles.
+
+Nous avons pu implémenter les fonctionnalités principales du réseau social, telles que la création de comptes, l'authentification sécurisée, la publication de messages, et l'interaction avec la communauté. De plus, nous avons mis en place des fonctionnalités avancées comme la gestion des notifications et le système de "flux infinis" pour le fil d'actualités, la messagerie privée, le système de report et la partie administration.
+
+Cependant, il reste encore de nombreuses fonctionnalités à implémenter pour atteindre une version complète du réseau social.
+\newpage
+\section{Perspectives}
+Le projet étant initialement prévu pour être une maquette, nous avons réussi à développer un réseau social fonctionnel. Cependant, il reste encore de nombreuses fonctionnalités à implémenter pour atteindre une version complète, de plus, nous avons consciemment choisi de ne pas implémenter certaines fonctionnalités clés de la sécurité pour simplifier le projet et se concentrer sur les aspects essentiels du développement web avancé.
+Voici quelques perspectives d'évolution pour le projet :
+\begin{itemize}[label=\textbullet]
+    \item Vérification des tokens JWT, de l'utilisateur et des rôles dans les microservices.
+    \begin{itemize}[label=-]
+        \item Implémenter une vérification des tokens JWT dans chaque microservice pour s'assurer que les requêtes sont authentifiées et autorisées.
+        \item Vérifier que l'utilisateur a les droits nécessaires pour accéder aux ressources demandées, en fonction de son rôle (utilisateur, modérateur, administrateur).
+        \item Un utilisateur ne peut pas accéder aux ressources d'un autre utilisateur sans autorisation.
+    \end{itemize}
+    Nous avons choisi de ne pas implémenter cette fonctionnalité pour simplifier le projet, mais elle est essentielle pour garantir la sécurité et la confidentialité des données des utilisateurs.
+    \item Hébergement de la base de données MongoDB sur un serveur dédié, voire sur un service cloud comme MongoDB Atlas, AWS ou Azure.
+    \item Mise en place du load balancing pour répartir la charge entre plusieurs instances de l'application, améliorant ainsi la scalabilité et la disponibilité.
+    \item Optimisation des performances du front-end, notamment en améliorant le temps de chargement des pages et en réduisant la taille des ressources (images, scripts, etc.).
+\end{itemize}
+
+
+% BIBLIOGRAPHIE
+\begin{thebibliography}{9}
+\addcontentsline{toc}{chapter}{Bibliographie}
+\bibitem{ref1} X, \url{https://x.com/}, consulté régulièrement durant le projet en juin 2025.
+\bibitem{ref2} Docker Inc. \textit{Docker Documentation}, \url{https://docs.docker.com/}, consulté régulièrement durant le projet en juin 2025.
+\bibitem{ref3} GitLab Inc. \textit{GitLab Documentation}, \url{https://docs.gitlab.com/}, consulté régulièrement durant le projet en juin 2025.
+\bibitem{ref4} Node.js Foundation. \textit{Node.js Documentation}, \url{https://nodejs.org/en/docs/}, consulté régulièrement durant le projet en juin 2025.
+\bibitem{ref5} Meta Platforms, Inc. \textit{React Documentation}, \url{https://react.dev/}, consulté régulièrement durant le projet en juin 2025.
+\bibitem{ref6} OpenAI. \textit{ChatGPT}, modèle de langage basé sur GPT-4, \url{https://chat.openai.com/}, consulté régulièrement durant le projet en juin 2025.
+\end{thebibliography}
+
+% GLOSSAIRE
+\chapter*{Glossaire}
+\addcontentsline{toc}{chapter}{Glossaire}
+\begin{description}
+    \item[Touites] Message court publié sur le réseau social, similaire à un tweet.
+    \item[API] Interface de Programmation d'Application, permettant la communication entre le front-end et le back-end.
+    \item[Docker] Outil de conteneurisation permettant de déployer des applications dans des environnements isolés.
+    \item[Node.js] Environnement d'exécution JavaScript côté serveur, utilisé pour développer le back-end de l'application.
+    \item[React] Bibliothèque JavaScript pour construire des interfaces utilisateur, utilisée pour le front-end de l'application.
+    \item[MongoDB] Base de données NoSQL utilisée pour stocker les données de l'application.
+    \item[Express] Framework web pour Node.js, facilitant la création de serveurs et la gestion des routes.
+    \item[OVH] Fournisseur d'hébergement web où l'application est déployée.
+    \item[GitLab] Plateforme de gestion de code source et de collaboration, utilisée pour le versionnage du projet.
+    \item[CI/CD] Intégration Continue / Déploiement Continu, pratiques de développement logiciel visant à automatiser le processus de test et de déploiement des applications.
+    \item[GitLab CI] Outil d'intégration continue permettant d'automatiser le processus de build et de déploiement de l'application.
+    \item[Ngnix] Serveur web utilisé pour gérer les requêtes HTTP et HTTPS, ainsi que pour la configuration des CORS.
+\end{description}
+
+% ANNEXES
+%\appendix
+%\chapter{Titre de l'annexe A}
+%\section{Contenu de l'annexe}
+% ...
+
+\end{document}
